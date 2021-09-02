@@ -5,12 +5,12 @@ set -e
 echo "Job started: $(date)"
 RCLONE_CONF=/root/.config/rclone/rclone.conf
 
-if [[ ! -z "$BACKUP_DIR" ]]; then
+if [[ -z "$BACKUP_DIR" ]]; then
     echo "Please set the target directory to backup using BACKUP_DIR"
 	exit 1
 fi
 
-if [[ ! -z "$FILE_PREFIX" ]]; then
+if [[ -z "$FILE_PREFIX" ]]; then
     echo "Please set the prefix for the backup file"
 	exit 1
 fi

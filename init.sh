@@ -2,7 +2,7 @@
 
 set -e
 
-if [[ ! -z "$CRON" ]]; then
+if [[ -z "$CRON" ]]; then
     echo "Please set the cron schedule via CRON env var"
 	exit 1
 fi
