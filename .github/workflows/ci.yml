@@ -13,6 +13,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - shell: bash
+      env: 
+        DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag sogajeffrey/rclone-backup:latest
