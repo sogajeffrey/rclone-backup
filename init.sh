@@ -11,3 +11,5 @@ echo "${CRON} /backup.sh" > /etc/cron.d/backup-cron
 echo "### EMPTY LINE FOR CRON" >> /etc/cron.d/backup-cron
 
 chmod 0644 /etc/cron.d/backup-cron
+
+cron
