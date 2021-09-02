@@ -2,7 +2,7 @@
 
 set -e
 
-echo "Job started: $(date)"
+echo "Job started: $(date)" | tee -a /var/log/cron.log
 RCLONE_CONF=/root/.config/rclone/rclone.conf
 
 if [[ -z "$BACKUP_DIR" ]]; then
@@ -29,12 +29,12 @@ DATE=$(date +%Y%m%d_%H%M%S)
 
 FILE=/tmp/${FILE_PREFIX}-${DATE}.tar.gz
 
-tar czf ${FILE} ${BACKUP_DIR}
+tar czvf ${FILE} ${BACKUP_DIR} | tee -a /var/log/cron.log
 
-rclone move ${FILE} ${RCLONE_REMOTE}:${RCLONE_PATH}/ -P 
+rclone move ${FILE} ${RCLONE_REMOTE}:${RCLONE_PATH}/ -P  | tee -a /var/log/cron.log
 
 if [ ! -z "$DELETE_OLDER_THAN" ]; then
-	rclone delete ${RCLONE_REMOTE}:${RCLONE_PATH}/ --min-age ${DELETE_OLDER_THAN}
+	rclone delete ${RCLONE_REMOTE}:${RCLONE_PATH}/ --min-age ${DELETE_OLDER_THAN} 
 fi
 
-echo "Job finished: $(date)"
+echo "Job finished: $(date)" | tee -a /var/log/cron.log
